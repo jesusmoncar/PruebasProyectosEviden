@@ -1,0 +1,59 @@
+<div class="container mt-5 p-4 shadow-sm rounded bg-light">
+  <h2 class="text-center text-primary mb-4">Actualizar Datos de Empleado</h2>
+
+  <form (ngSubmit)="onSubmit()" #empleadoForm="ngForm">
+    <div class="mb-3">
+      <label for="nombre" class="form-label fw-bold">Nombre</label>
+      <input
+        type="text"
+        id="nombre"
+        class="form-control"
+        [(ngModel)]="nombre"
+        name="nombre"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="apellido" class="form-label fw-bold">Apellido</label>
+      <input
+        type="text"
+        id="apellido"
+        class="form-control"
+        [(ngModel)]="apellido"
+        name="apellido"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label fw-bold">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-success w-100"
+      [disabled]="!empleadoForm.form.valid"
+    >
+      Actualizar Empleado
+    </button>
+  </form>
+
+  <div
+    *ngIf="mostrarDatos"
+    class="mt-4 alert alert-success"
+    role="alert"
+  >
+    Empleado Actualizado con éxito.
+  </div>
+</div>
+
+
