@@ -4,21 +4,20 @@ import { Empleado } from './models/empleado.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root' // Proporciona el servicio a toda la aplicación
+  providedIn: 'root'
 })
 export class DataService {
-
   private apiUrl = "https://mis-clientes-e3d52-default-rtdb.europe-west1.firebasedatabase.app/datos.json";
 
   constructor(private httpClient: HttpClient) {}
 
   // Cargar empleados desde Firebase
   cargarEmpleados(): Observable<Empleado[]> {
-    return this.httpClient.get<Empleado[]>(this.apiUrl); // Especificamos que esperamos un array de Empleados
+    return this.httpClient.get<Empleado[]>(this.apiUrl);
   }
 
-  // Agregar un empleado a Firebase
-  guardarEmpleado(empleado: Empleado): Observable<any> {
-    return this.httpClient.post(this.apiUrl, empleado); // Usamos POST para crear un nuevo registro
+  // Guardar la lista completa de empleados en Firebase (sobrescribir con PUT)
+  guardarEmpleados(empleados: Empleado[]): Observable<any> {
+    return this.httpClient.put(this.apiUrl, empleados); // Reemplaza todos los datos en el nodo "datos"
   }
 }

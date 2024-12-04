@@ -20,6 +20,7 @@ export class ListarcomponentComponent implements OnInit{
 
   // Cargamos la lista de empleados cuando el componente se inicializa
   ngOnInit(): void {
+
     // this.empleados = this.empleadoService.obtenerEmpleados();
     console.log(this.empleadoService.obtenerEmpleados());
     this.empleadoService.obtenerEmpleados().subscribe(misEmpleados=>{

@@ -38,11 +38,14 @@ export class EmpleadoService {
       email
     };
 
-    this.dataService.guardarEmpleado(nuevoEmpleado).subscribe(() => {
-      console.log("Empleado agregado con éxito.");
-      this.empleados.push(nuevoEmpleado);
+    // Agregamos el nuevo empleado a la lista local
+    this.empleados.push(nuevoEmpleado);
+
+    // Guardamos la lista completa de empleados en Firebase usando PUT
+    this.dataService.guardarEmpleados(this.empleados).subscribe(() => {
+      console.log("Lista de empleados actualizada con éxito.");
     }, error => {
-      console.error("Error al guardar el empleado:", error);
+      console.error("Error al guardar la lista de empleados:", error);
     });
   }
 
@@ -69,7 +72,9 @@ export class EmpleadoService {
       empleado.nombre = nombre;
       empleado.apellido = apellido;
       empleado.email = email;
-      this.dataService.guardarEmpleado(empleado).subscribe(() => {
+
+      // Guardamos la lista completa después de actualizar
+      this.dataService.guardarEmpleados(this.empleados).subscribe(() => {
         console.log("Empleado actualizado con éxito.");
       });
     }
