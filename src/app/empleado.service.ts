@@ -14,23 +14,28 @@ export class EmpleadoService {
   constructor(private dataService: DataService) {
     this.cargarEmpleados().subscribe(empleados => {
       this.empleados = empleados;
-      this.idCounter = empleados.length; // Actualizamos el contador
+      this.idCounter = 0; // Actualizamos el contador
     });
   }
 
   cargarEmpleados(): Observable<Empleado[]> {
     return this.dataService.cargarEmpleados().pipe(
       map((empleados: any) => {
-        return Object.values(empleados || {}).map((emp: any) => ({
-          id: emp.id,
+        if (!empleados) {
+          return []; // Si no hay empleados, devolvemos un array vacío
+        }
+        return Object.entries(empleados).map(([key, emp]: [string, any]) => ({
+          id: parseInt(key, 10), // Convertimos la clave a número
           nombre: emp.nombre,
           apellido: emp.apellido,
           password: emp.password,
           email: emp.email,
-        }));
+        })).filter(emp => !isNaN(emp.id)); // Filtramos entradas con IDs no numéricos
       })
     );
   }
+
+
 
   agregarEmpleado(nombre: string, apellido: string, password: string, email: string): void {
     const nuevoEmpleado: Empleado = {
@@ -82,20 +87,22 @@ export class EmpleadoService {
       // Guardamos la lista completa después de actualizar
       this.dataService.guardarEmpleados(this.empleados).subscribe(() => {
         console.log("Empleado actualizado con éxito.");
+
       });
     }
   }
-
-  eliminarEmpleado(id:number){
-
-    this.empleados.slice (id,1);
-
-    this.dataService.eliminarEmpleados(id);
+  eliminarEmpleado(id: number): void {
+    this.dataService.eliminarEmpleado(id).subscribe(() => {
+      console.log(`Empleado con ID ${id} eliminado de Firebase.`);
+      // Recargamos la lista de empleados
+      this.cargarEmpleados().subscribe((empleados) => {
+        this.empleados = empleados;
+        console.log("Lista de empleados actualizada después de la eliminación.");
+      });
+    }, error => {
+      console.error(`Error al eliminar el empleado con ID ${id}:`, error);
+    });
   }
-
-
-
-
 
 
 }

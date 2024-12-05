@@ -17,7 +17,7 @@ export class ListarcomponentComponent implements OnInit{
   id: number ;
 
   // Inyectamos el servicio
-  constructor(private empleadoService: EmpleadoService,   private router: Router) {}
+  constructor(protected empleadoService: EmpleadoService, private router: Router) {}
 
   // Cargamos la lista de empleados cuando el componente se inicializa
   ngOnInit(): void {
