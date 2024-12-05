@@ -6,6 +6,7 @@
     <thead>
     <tr>
       <th>ID</th>
+      <th>Borrar</th>
       <th>Nombre</th>
       <th>Apellido</th>
       <th>Email</th>
@@ -14,6 +15,8 @@
     <tbody>
     <tr *ngFor="let empleado of empleados">
       <td><a [routerLink]="['/actualiza',empleado.id]"> {{ empleado.id }} </a></td>
+      <td><button (click)="empleadoService.eliminarEmpleado(empleado.id )">Eliminar</button>
+    </td>
       <td>{{ empleado.nombre }}</td>
       <td>{{ empleado.apellido }}</td>
       <td>{{ empleado.email }}</td>
