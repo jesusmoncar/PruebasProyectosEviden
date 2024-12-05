@@ -9,6 +9,7 @@ import { map, Observable } from 'rxjs';
 export class EmpleadoService {
   empleados: Empleado[] = [];
   private idCounter: number = 0;
+  private password: string;
 
   constructor(private dataService: DataService) {
     this.cargarEmpleados().subscribe(empleados => {
@@ -24,17 +25,19 @@ export class EmpleadoService {
           id: emp.id,
           nombre: emp.nombre,
           apellido: emp.apellido,
+          password: emp.password,
           email: emp.email,
         }));
       })
     );
   }
 
-  agregarEmpleado(nombre: string, apellido: string, email: string): void {
+  agregarEmpleado(nombre: string, apellido: string, password: string, email: string): void {
     const nuevoEmpleado: Empleado = {
       id: ++this.idCounter,
       nombre,
       apellido,
+      password,
       email
     };
 
@@ -53,11 +56,13 @@ export class EmpleadoService {
     return this.cargarEmpleados();
   }
 
-  setEmpleado(misEmpleados: Empleado[]): void {
+  setEmpleado(misEmpleados: {
+    id: number; nombre: string; apellido: string; password: string; email: string }[]): void {
     this.empleados = misEmpleados.map(emp => ({
       id: emp.id,
       nombre: emp.nombre,
       apellido: emp.apellido,
+      password: emp.password,
       email: emp.email,
     }));
   }
@@ -66,11 +71,12 @@ export class EmpleadoService {
     return this.empleados.find(emp => emp.id === id);
   }
 
-  actualizarEmpleado(id: number, nombre: string, apellido: string, email: string): void {
+  actualizarEmpleado(id: number, nombre: string, apellido: string, email: string, s: string): void {
     const empleado = this.empleados.find(emp => emp.id === id);
     if (empleado) {
       empleado.nombre = nombre;
       empleado.apellido = apellido;
+      empleado.password = this.password;
       empleado.email = email;
 
       // Guardamos la lista completa después de actualizar
@@ -79,4 +85,17 @@ export class EmpleadoService {
       });
     }
   }
+
+  eliminarEmpleado(id:number){
+
+    this.empleados.slice (id,1);
+
+    this.dataService.eliminarEmpleados(id);
+  }
+
+
+
+
+
+
 }

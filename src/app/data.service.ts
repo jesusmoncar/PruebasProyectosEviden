@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = "https://mis-clientes-e3d52-default-rtdb.europe-west1.firebasedatabase.app/datos.json";
+  private apiUrl = "https://misclientes-d34e6-default-rtdb.europe-west1.firebasedatabase.app/datos.json";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -20,4 +20,17 @@ export class DataService {
   guardarEmpleados(empleados: Empleado[]): Observable<any> {
     return this.httpClient.put(this.apiUrl, empleados); // Reemplaza todos los datos en el nodo "datos"
   }
+
+  eliminarEmpleados(id:number){
+
+    let url = 'https://misclientes-d34e6-default-rtdb.europe-west1.firebasedatabase.app/' + id + ".json";
+
+    this.httpClient.delete(url).subscribe(
+      respose=>console.log("Se ha eliminado correctamente el empleado " + respose),
+      error => console.log("Error: " + error),
+
+    )
+  }
+
+
 }

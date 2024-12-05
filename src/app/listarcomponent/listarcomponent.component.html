@@ -8,6 +8,7 @@
       <th>ID</th>
       <th>Nombre</th>
       <th>Apellido</th>
+      <th>password</th>
       <th>Email</th>
     </tr>
     </thead>
@@ -16,6 +17,7 @@
       <td><a [routerLink]="['/actualiza',empleado.id]"> {{ empleado.id }} </a></td>
       <td>{{ empleado.nombre }}</td>
       <td>{{ empleado.apellido }}</td>
+      <td>{{ empleado.password }}</td>
       <td>{{ empleado.email }}</td>
     </tr>
     </tbody>

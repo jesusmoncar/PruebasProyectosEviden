@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Asegúrate de importar esto en el módulo también
+import {FormsModule, NgForm} from '@angular/forms'; // Asegúrate de importar esto en el módulo también
 import { EmpleadoService } from '../empleado.service';
 import {Router} from '@angular/router';
 
@@ -13,6 +13,7 @@ export class LoginComponentComponent {
 
   nombre: string = '';
   apellido: string = '';
+  password: string = '';
   email: string = '';
 
   // Inyectamos el servicio
@@ -24,7 +25,7 @@ export class LoginComponentComponent {
   // Método para enviar los datos del formulario
   onSubmit(): void {
     // Usamos el servicio para agregar el empleado
-    this.empleadoService.agregarEmpleado(this.nombre, this.apellido, this.email);
+    this.empleadoService.agregarEmpleado(this.nombre, this.apellido, this.password, this.email);
 
     // Permitimos que los datos se muestren si la operación fue exitosa
     this.mostrarDatos = true;
@@ -32,6 +33,9 @@ export class LoginComponentComponent {
     // Limpiamos los campos del formulario
     this.nombre = '';
     this.apellido = '';
+    this.password = '';
     this.email = '';
   }
+
+
 }

@@ -27,6 +27,18 @@
     </div>
 
     <div class="mb-3">
+      <label for="password" class="form-label fw-bold">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
       <label for="email" class="form-label fw-bold">Email</label>
       <input
         type="email"
@@ -45,12 +57,13 @@
     >
       Actualizar Empleado
     </button>
+    <br><br>
   </form>
 
   <div
-    *ngIf="mostrarDatos"
     class="mt-4 alert alert-success"
     role="alert"
+    *ngIf="mostrarDatos"
   >
     Empleado Actualizado con éxito.
   </div>

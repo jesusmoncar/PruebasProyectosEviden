@@ -14,6 +14,7 @@ export class ActualizaComponentComponent implements OnInit {
   id: number = 0;
   nombre: string = '';
   apellido: string = '';
+  password: string = '';
   email: string = '';
 
   empleado: Empleado | undefined;  // Usamos una propiedad para almacenar el empleado
@@ -32,6 +33,7 @@ export class ActualizaComponentComponent implements OnInit {
     if (this.empleado) {
       this.nombre = this.empleado.nombre;
       this.apellido = this.empleado.apellido;
+      this.password = '';
       this.email = this.empleado.email;
     } else {
       // Si no se encuentra el empleado, podríamos redirigir o mostrar un mensaje de error
@@ -45,15 +47,19 @@ export class ActualizaComponentComponent implements OnInit {
   onSubmit(): void {
     // Usamos el servicio para actualizar el empleado
     if (this.empleado) {
-      this.empleadoService.actualizarEmpleado(this.id, this.nombre, this.apellido, this.email);
+      this.empleadoService.actualizarEmpleado(this.id, this.nombre, this.apellido, this.password, this.email);
       this.mostrarDatos = true;
 
       // Limpiamos los campos del formulario
       this.nombre = '';
       this.apellido = '';
+      this.password = '';
       this.email = '';
     } else {
       console.error('Empleado no encontrado para actualizar');
     }
+
   }
+
+
 }

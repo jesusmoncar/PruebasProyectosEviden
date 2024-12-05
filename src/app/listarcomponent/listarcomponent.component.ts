@@ -12,7 +12,8 @@ import { Router} from '@angular/router';
 })
 export class ListarcomponentComponent implements OnInit{
 
-  empleados: {id:number; nombre: string; apellido: string; email: string }[] = [];
+  empleados: {
+    id:number; nombre: string; apellido: string; password: string; email: string }[] = [];
   id: number ;
 
   // Inyectamos el servicio
